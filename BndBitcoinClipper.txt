@@ -1,0 +1,37 @@
+rule hunt_BndBitcoinClipper
+{
+	meta:
+		author = "Emanuel Durmaz"
+		description = "clipboard hijacking via polling"
+		sha256 = "1c9a0e928b28fd9cc1b281b3531545de0724b85a39e0baa1ef68182a20e93a6c" //minimal sample from builder
+		url = "https://fraudsters.is/index.php?thread/47126-gratis-bnd-bitcoin-stealer-source-code-inklusive-c/"
+
+	strings:
+		$n = "BND-Stealer" ascii wide
+
+		$a1 = "_BTC_ST" ascii wide
+		$a2 = "Clipboard konnte nicht ausgelesen werden..." ascii wide
+		$a3 = "RT_RCDATA" ascii wide
+		$a4 = "RT_STRING" ascii wide
+		$a5 = "c:\\users\\admin\\source\\repos\\" ascii wide
+		$a6 = "\\Stub\\obj\\Debug\\Stub.pdb" ascii wide
+		$a7 = "StartsWith" ascii wide
+		$a8 = "Sleep" ascii wide		
+
+		$b1 = "Clipboard" ascii wide
+		$b2 = "GetText" ascii wide
+		$b3 = "SetText" ascii wide
+
+		$c1 = "Stub.exe" ascii wide
+		$c2 = "startup" ascii wide
+		$c3 = "wallet" ascii wide
+		$c4 = "STARTUP" ascii wide
+		$c5 = "WALLET" ascii wide
+		$c6 = "PERSISTENCE" ascii wide
+		$c7 = "persist" ascii wide
+		$c8 = "hide" ascii wide
+		$c9 = "HIDE" ascii wide
+
+	condition:
+		($n or (5 of ($a*)) ) and (all of ($b*)) and (5 of ($c*))
+}

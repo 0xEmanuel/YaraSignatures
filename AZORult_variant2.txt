@@ -1,0 +1,45 @@
+rule hunt_AZORult_variant2
+{
+	meta:
+		autor = "Emanuel Durmaz"
+		description = "An older version of AZORult (maybe version 3.0). steals wallet files, passwords, cookies, etc."
+		sha256 = "931307610712b1ea1b917c75715bfa6e663ae2bc2a1880418e8e76b8e5bf01c1"
+		sha256 = "d8ffb67c008e424077c7292bb58ac74c9dfd4e818af950a89a3112e987e41424" //unpacked
+		url = "https://malware.lu/articles/2018/05/04/azorult-stealer.html"
+
+	strings:
+		$w1 = "wallet.dat" ascii wide
+		$w2 = "electrum.dat" ascii wide
+		$w3 = "\\Electrum" ascii wide
+		$w4 = "Coins" ascii wide
+		$w5 = "BitcoinQT" ascii wide
+		$w6 = "Bitcoin-Qt" ascii wide
+		$w7 = "mbhd.wallet.aes" ascii wide
+		$w8 = "\\MultiBitHD\\" ascii wide
+		$w9 = "wallet_path" ascii wide
+		$w10 = "monero-core" ascii wide
+		$w11 = "\\Monero" ascii wide
+
+		$a1 = "tempbuffer.dat" ascii wide
+		$a2 = "kerusersh" ascii wide
+		$a3 = "getcfg=" ascii wide
+		$a4 = "reportdata=" ascii wide
+		$a5 = "strDataDir" ascii wide
+		$a6 = "main.db" ascii wide
+		$a7 = "PasswordsList.txt" ascii wide
+		$a8 = "CookieList.txt" ascii wide
+		$a9 = "scr.jpg" ascii wide
+		$a10 = "ip.txt" ascii wide
+		$a11 = "System.txt" ascii wide
+		$a12 = "Browsers\\Cookies" ascii wide
+		$a13 = "Browsers\\AutoComplete" ascii wide
+		$a14 = "SteamPath" ascii wide
+		$a15 = "</info" ascii wide
+		$a16 = "</pwds" ascii wide
+		$a17 = "</coks" ascii wide
+		$a18 = "\\*.cookie" ascii wide
+		$a19 = "</password>" ascii wide
+
+	condition:
+		(3 of ($w*)) and (15 of ($a*))
+}

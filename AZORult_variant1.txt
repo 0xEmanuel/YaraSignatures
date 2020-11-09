@@ -1,0 +1,49 @@
+rule hunt_AZORult_variant1
+{
+	meta:
+		autor = "Emanuel Durmaz"
+		description = "An older version of AZORult (probably version 2.x). steals wallet.dat, passwords, cookies, etc."
+		sha256 = "b5ad51d912c12e92690f094e2ae79c051dab22d4431eb6741e92408f2f98662d" //minimal sample directly from the builder
+		url = "https://blog.minerva-labs.com/analyzing-an-azorult-attack-evasion-in-a-cloak-of-multiple-layers"
+
+	strings:
+		$w1 = "wallet.dat" ascii wide
+		$w2 = "IS_G_COINS" ascii wide
+		$w3 = "getCoins" ascii wide
+
+		$a1 = "/gate.php" ascii wide
+		$a2 = "_NO_WORK_EXIT_" ascii wide
+		$a3 = "getconfig" ascii wide
+		$a4 = "sendreport" ascii wide
+		$a5 = "userfile" ascii wide
+		$a6 = "pwdata" ascii wide
+		$a7 = "===Config===" ascii wide
+		$a8 = "IS_G_PWDS" ascii wide
+		$a9 = "IS_G_DESKTOP" ascii wide
+		$a10 = "IS_G_BROWSERS" ascii wide
+		$a11 = "main.db" ascii wide
+		$a12 = "</password>" ascii wide
+		$a13 = "</protocol>" ascii wide
+		$a14 = "</roster-cache>" ascii wide
+		$a15 = "SELECT fieldname, value FROM moz_formhistory" ascii wide
+		$a16 = "SELECT name, value FROM autofill" ascii wide
+		$a17 = "SELECT origin_url, username_value, password_value FROM logins" ascii wide
+		$a18 = "----WebKitFormBoundary" ascii wide
+		$a19 = "\\filezilla\\recentservers.xml" ascii wide
+		
+		$b1 = "Passwords.txt" ascii wide
+		$b2 = "Programms.txt" ascii wide
+		$b3 = "Process.txt" ascii wide
+		$b4 = "Info.txt" ascii wide
+		$b5 = "rowsers\\Cookies" ascii wide nocase
+		$b6 = "Google_Chrome" ascii wide
+		$b7 = "MozillaFirefox" ascii wide
+		$b8 = "InternetMailRu" ascii wide
+		$b9 = "Orbitum" ascii wide
+		$b10 = "YandexBrowser" ascii wide
+		$b11 = "ComodoDragon" ascii wide
+		$b12 = "Opera" ascii wide
+
+	condition:
+		(1 of ($w*)) and (14 of ($a*)) and (6 of ($b*))
+}

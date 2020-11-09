@@ -1,0 +1,104 @@
+rule hunt_AcridRain
+{
+	meta:
+		autor = "Emanuel Durmaz"
+		description = "steals wallet files, passwords, etc. "
+		sha256 = "769df72c4c32e94190403d626bd9e46ce0183d3213ecdf42c2725db9c1ae960b"
+		sha256 = "7b045eec693e5598b0bb83d21931e9259c8e4825c24ac3d052254e4925738b43" // older version
+		url = "..."
+
+	strings:
+		$w1 = "Bitcoin" ascii wide
+		$w2 = "Litecoin" ascii wide
+		$w3 = "\\Doge\\" ascii wide
+		$w4 = "MultiDoge" ascii wide
+		$w5 = "Electrum" ascii wide
+		$w6 = "mSIGNA" ascii wide
+		$w7 = "Armory" ascii wide
+		$w8 = "\\Dash" ascii wide
+		$w9 = "Monero" ascii wide
+		$w10 = "Ethereum\\keystore" ascii wide
+		
+		$a1 = "*.dat" ascii wide
+		$a2 = "*.keys" ascii wide
+		$a3 = "_Cookies.txt" ascii wide
+		$a4 = "browser\\" ascii wide
+		$a5 = "\\User Data\\Profile" ascii wide
+		$a6 = "body.out" ascii wide
+		$a7 = "sqlite" ascii wide
+		$a8 = "exp_month" ascii wide
+		$a9 = "name_on_card" ascii wide
+		$a10 = "Libs.zip" ascii wide
+		$a11 = "Steam.exe" ascii wide
+		$a12 = "Telegram" ascii wide
+		$a13 = "\\FileZilla\\recentservers.xml" ascii wide
+		$a14 = "Local\\Temp\\" ascii wide
+		$a15 = "result_cookies.txt"
+		$a16 = "result_CC.txt"
+
+		$b1 = "CocCoc" ascii wide
+		$b2 = "Chrome" ascii wide
+		$b3 = "Comodo" ascii wide
+		$b4 = "Maxthon5" ascii wide
+		$b5 = "Sputnik" ascii wide
+		$b6 = "Orbitum" ascii wide
+		$b7 = "GOOGLE" ascii wide
+		$b8 = "rambler" ascii wide
+		$b9 = "MailRu" ascii wide nocase
+		$b10 = "Opera" ascii wide
+		$b11 = "Vivaldi" ascii wide
+		$b12 = "Yandex" ascii wide
+		$b13 = "Kometa" ascii wide
+		$b14 = "Torch" ascii wide
+		$b15 = "Chromium" ascii wide
+
+		$t1 =  "________________________________AMIGO" ascii wide
+		$t2 =  "________________________________GOOGLE CHROME" ascii wide
+		$t3 =  "________________________________Vivaldi" ascii wide
+		$t4 =  "________________________________Yandex" ascii wide
+		$t5 =  "________________________________Kometa" ascii wide
+		$t6 =  "________________________________Orbitum" ascii wide
+		$t7 =  "________________________________Comodo" ascii wide
+		$t8 =  "________________________________Torch" ascii wide
+		$t9 =  "________________________________OPERA" ascii wide
+		$t10 = "________________________________MailRu" ascii wide
+		$t11 = "________________________________Chromium" ascii wide
+		$t12 = "________________________________Maxthon5" ascii wide
+		$t13 = "________________________________Sputnik" ascii wide
+		$t14 = "________________________________Epic Privacy Browser" ascii wide
+		$t15 = "________________________________CocCoc Browser" ascii wide
+		$t16 = "________________________________Pale Moon" ascii wide
+		$t17 = "________________________________Cyberfox" ascii wide
+		$t18 = "________________________________BlackHawk" ascii wide
+		$t19 = "________________________________K-Meleon" ascii wide
+
+		$s1 = "search_url_post_params" ascii wide
+		$s2 = "billing_address_id" ascii wide
+		$s3 = "autofill_profile_names" ascii wide
+		$s4 = "autofill_profile_emails" ascii wide
+		$s5 = "suggest_url_post_params" ascii wide
+		$s6 = "instant_url_post_params" ascii wide
+		$s7 = "autofill_profiles_trash" ascii wide
+		$s8 = "masked_credit_cards" ascii wide
+		$s9 = "unmasked_credit_cards" ascii wide
+		$s10 = "expiration_month" ascii wide
+		$s11 = "card_number_encrypted" ascii wide
+		$s12 = "safe_for_autoreplace" ascii wide
+		$s13 = "image_url_post_params" ascii wide
+		$s14 = "autofill_profile_phones" ascii wide
+		$s15 = "server_card_metadata" ascii wide
+		$s16 = "server_addresses" ascii wide
+		$s17 = "autofill_profiles" ascii wide
+		$s18 = "street_address" ascii wide
+		$s19 = "sorting_code" ascii wide
+		$s20 = "language_code" ascii wide
+		$s21 = "use_count" ascii wide
+		$s22 = "credit_cards" ascii wide
+		$s23 = "first_name" ascii wide
+		$s24 = "last_name" ascii wide
+		$s25 = "full_name" ascii wide
+
+	condition:
+		( (7 of ($w*)) and (11 of ($a*)) and (13 of ($b*)) and (9 of ($s*)) ) or
+		( (4 of ($w*)) and (5 of ($a*)) and (5 of ($t*)) and (9 of ($s*)) )
+}

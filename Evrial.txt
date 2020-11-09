@@ -1,0 +1,27 @@
+rule hunt_Evrial
+{
+	meta:
+		autor = "Emanuel Durmaz"
+		description = "Evrial Project, steals chrome passwords, bitcoin wallet.dat and monitors the clipboard for crypto address hijacking"
+		sha256 = "9edd8f0e22340ecc45c5f09e449aa85d196f3f506ff3f44275367df924b95c5d"
+		sha256 = "1af83a240daacf8fcb72c4526de66663bb5d3873212f7ed11f44c75250747580"
+
+	strings:
+		//stealer
+		$w1 = "wallet.dat" ascii wide
+		$w2 = "BitcoinStealer" ascii wide
+		$w3 = "Bitcoin-Qt" ascii wide
+
+		$e1 = "Evrial" ascii wide
+		$e2 = "Qutrachka" ascii wide	
+
+		$a1 = "WM_DRAWCLIPBOARD" ascii wide
+		$a2 = "ClipboardMonitor" ascii wide
+		$a3 = "ClipboardWatcher" ascii wide
+		$a4 = "Stealer" ascii wide
+		$a5 = "Stealed by" ascii wide
+		$a6 = "Project" ascii wide
+
+	condition:
+		(1 of ($w*)) and (1 of ($e*)) and (2 of ($a*))
+}

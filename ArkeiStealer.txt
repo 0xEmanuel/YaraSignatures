@@ -1,0 +1,58 @@
+rule hunt_ArkeiStealer
+{
+	meta:
+		autor = "Emanuel Durmaz"
+		description = "steals wallet files, passwords, cookies, etc. Seems to be a variant of the NocturnalStealer "
+		sha256 = "0ecdc90fd7cab0cd0d18e607827b134ece75012532f5eb81605d7e79cd4c185c"
+		url = "..."
+
+	strings:
+		$w1 = "Bitcoin" ascii wide nocase
+		$w2 = "Ethereum" ascii wide nocase
+		$w3 = "Electrum" ascii wide nocase
+		$w4 = "Electrum-LTC" ascii wide nocase
+		$w5 = "Exodus" ascii wide nocase
+		$w6 = "DashCore" ascii wide nocase
+		$w7 = "Litecoin" ascii wide nocase
+		$w8 = "ElectronCash" ascii wide nocase
+		$w9 = "Zcash" ascii wide nocase
+		$w10 = "MultiDoge" ascii wide nocase
+		$w11 = "Anoncoin" ascii wide nocase
+		$w12 = "BBQCoin" ascii wide nocase
+		$w13 = "devcoin" ascii wide nocase
+		$w14 = "digitalcoin" ascii wide nocase
+		$w15 = "Florincoin" ascii wide nocase
+		$w16 = "Franko" ascii wide nocase
+		$w17 = "Freicoin" ascii wide nocase
+		$w18 = "GoldCoin" ascii wide nocase
+		$w19 = "Infinitecoin" ascii wide nocase
+		$w20 = "IOCoin" ascii wide nocase
+		$w21 = "Megacoin" ascii wide nocase
+		$w22 = "Mincoin" ascii wide nocase
+		$w23 = "Namecoin" ascii wide nocase
+		$w24 = "Primecoin" ascii wide nocase
+		$w25 = "Terracoin" ascii wide nocase
+		$w26 = "YACoin" ascii wide nocase
+		
+		$a1 = "\\files\\" ascii wide
+		$a2 = "_wallet" ascii wide
+		$a3 = "\\wallet.dat" ascii wide
+		$a4 = "filezilla" ascii wide
+		$a5 = "\\AppData\\Roaming\\" ascii wide
+		$a7 = "\\User Data\\" ascii wide
+		$a8 = "\\Profiles\\" ascii wide
+		$a9 = "cookies_" ascii wide
+		$a10 = "autofill" ascii wide
+		$a11 = "passwords." ascii wide
+		$a12 = "information." ascii wide
+		$a13 = "/server/gate" ascii wide
+
+		//not in Nocturnal
+		$a14 = "/server/grubConfig" ascii wide
+		$a15 = "screenshot.bmp"
+		$a16 = "Desktop.zip" ascii wide
+
+		$y = "Arkei" ascii wide
+	condition:
+		$y and (3 of ($w*)) and (7 of ($a*))
+}

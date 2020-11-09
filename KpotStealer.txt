@@ -1,0 +1,70 @@
+rule hunt_KpotStealer
+{
+	meta:
+		author = "Emanuel Durmaz"
+		description = "wallet stealer, etc."
+		sha256 = "101e743ac3140c196738f7515dcbb56619a882f00bf5f3c9a3f5863ae635155f" //default sample from builder
+		sha256 = "98823abc40ab3e80471bfcf3a3b8d16676cfc613363fad4ca2cdc6fbeb2f371f" // other variant
+		url = "https://www.flashpoint-intel.com/blog/malware-campaign-targets-jaxx-cryptocurrency-wallet-users/"
+
+	strings:
+		$w1 = "wallet.dat" ascii wide
+		$w2 = "wallet_path" ascii wide
+		$w3 = "Ethereum" ascii wide
+		$w4 = "keystore" ascii wide
+		$w5 = "Electrum" ascii wide
+		$w6 = "Bytecoin" ascii wide
+		$w7 = "Namecoin" ascii wide
+		$w8 = "monero-project" ascii wide
+
+		$a1 = "VBox" ascii wide
+		$a2 = "formhistory" ascii wide	
+		$a3 = "name_on_card" ascii wide
+		$a4 = "exp_month" ascii wide
+		$a5 = "exp_year" ascii wide
+		$a6 = "bank_name" ascii wide
+		$a7 = "moz_logins" ascii wide
+		$a8 = "credit_cards" ascii wide
+		$a9 = "moz_cookies" ascii wide
+		$a10 = "moz_formhistory" ascii wide
+		$a11 = "autofill" ascii wide
+		$a12 = "\\discord\\Local Storage\\https_discordapp.com_0.localstorage" ascii wide
+		$a13 = "Telegram" ascii wide
+		$a14 = "\\Battle.net" ascii wide
+		$a15 = "\\NordVPN" ascii wide
+		$a16 = "\\EarthVPN" ascii wide
+		$a17 = "key3.db" ascii wide
+		$a18 = "TERMSRV/" ascii wide
+		$a19 = "%s | %s | %s | %02d/%04d | %S" ascii wide
+		$a20 = "%s\\cookies.sqlite" ascii wide
+		$a21 = "wininetCookies.txt" ascii wide
+		$a22 = "%s%S.json" ascii wide
+		$a23 = "C:\\windows\\sysnative\\cmd.exe" ascii wide
+		$a24 = "%s/ip.php" ascii wide
+		$a25 = "%s/%s.php" ascii wide
+		$a26 = "screen.png" ascii wide
+		$a27 = "Grabber\\%s" ascii wide
+		$a28 = "main.db" ascii wide
+		$a29 = "pidgin.txt" ascii wide
+		$a30 = "strDataDir" ascii wide
+		$a31 = "VPN.txt" ascii wide
+		$a32 = "Skype\\%s.txt" ascii wide
+		$a33 = "credentials.txt" ascii wide
+		$a34 = "sysInfo.txt" ascii wide
+		$a35 = "\\Passwords.txt" ascii wide
+		$a36 = "\\Autofill.txt" ascii wide
+		$a37 = "\\CC.txt" ascii wide
+		$a38 = "\\Cookies.txt" ascii wide
+		$a39 = "regbot.php" ascii wide
+		$a40 = "bot_id=%s&x64=%d&is_admin=%d&IL=%d&os_version=%d" ascii wide
+		$a41 = "Content-Type: vnd.ms-cab-compressed" ascii wide
+		$a42 = "__DELIMM__"
+		$a43 = "global-salt"
+		$a44 = "%S/base64.php?_f=%s" ascii wide
+		$a45 = "gate.php"
+		$a46 = "password-check"
+		$a47 = "COOOOKIE"
+
+	condition:
+		(21 of ($a*)) and (2 of ($w*))
+}

@@ -1,0 +1,32 @@
+rule hunt_AZORult_3_2
+{
+	meta:
+		autor = "Emanuel Durmaz"
+		description = "Steals several cryptocurrency wallet files, passwords, etc."
+		sha256 = "3809394dceddbe1419e964cd08397e5fed4a0bbefc8be466f33614bac8794243"
+		url = "https://www.proofpoint.com/us/threat-insight/post/new-version-azorult-stealer-improves-loading-features-spreads-alongside"
+
+    	strings:
+		//cryptocurrency wallet files
+		$btc_core_wallet = "wallet.dat" ascii wide
+		$monero_subpath = "\\monero-core" ascii wide
+		$address_file = "address.txt" ascii wide
+		$exodus_subpath = "\\Exodus" ascii wide
+		$multibithd_subpath = "\\MultiBitHD" ascii wide
+		$ethereum_keystore_supath = "\\keystore" ascii wide
+		$jaxx_localstorage_subpath = "Jaxx" ascii wide
+		$electrum_subpath = "Electrum" ascii wide
+
+		//other targets
+		$telegram_subpath = "\\tdata" ascii wide
+		$steam = "Steam" ascii wide	
+		$skype = "Skype" ascii wide
+
+		//tags
+		$password_tag = "</password>" ascii wide
+		$pwds_tag = "</pwds" ascii wide
+		$c_tag = "</c>" ascii wide
+
+	condition:
+		all of them
+}

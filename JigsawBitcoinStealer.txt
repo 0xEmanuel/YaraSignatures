@@ -1,0 +1,33 @@
+rule hunt_JigsawBitcoinStealer
+{
+	meta:
+		autor = "Emanuel Durmaz"
+		description = "Replaces bitcoin addresses in clipboard"
+		sha256 = "454280128478d0da357e8609d5bef43a601ba18582a96678c0d5e60ceb9b08aa"
+		url = "..."
+
+	strings:
+		//packed
+		$a1 = "Copyright 1999-2012 Firefox and Mozzilla developers" ascii wide nocase
+		$a2 = "BitcoinStealer" ascii wide nocase
+		$a3 = "GCHandleType\x00Module\x00MethodBase\x00RuntimeHelpers\x00InitializeArray\x00RuntimeFieldHandle\x00GetExecutingAssembly" ascii wide
+		$a4 = "GetState\x00DecodeNormal" ascii wide
+
+		//unpacked
+		$b1 = "AddClipboardFormatListener\x00user32.dll" ascii wide
+		$b2 = "Regex\x00System.Text.RegularExpressions" ascii wide
+		$b3 = "vanityAddresses" ascii wide nocase
+		$b4 = "StartModeDebug" ascii wide nocase
+		$b5 = "Clipboard\x00GetText\x00ContainsText" ascii wide
+		$b6 = "ConfuserEx" ascii wide
+
+		$c1 = "^(1|3)[1-9A-HJ-NP-Za-km-z]{26,34}$" ascii wide
+		$c2 = "Drpbx\\drpbx.exe" ascii wide nocase
+		$c3 = "Frfx\\firefox.exe" ascii wide nocase
+		$c4 = "To run this application, you first must install one of the following version of the .NET Framework" ascii wide nocase
+
+	condition:
+		(all of ($a*) ) or
+		(all of ($b*) ) or
+		(all of ($c*) )
+}

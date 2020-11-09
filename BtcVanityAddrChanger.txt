@@ -1,0 +1,46 @@
+rule hunt_BtcVanityAddrChanger
+{
+	meta:
+		author = "Emanuel Durmaz"
+		description = "clipboard hijacking"
+		sha256 = "1f7b065118f11ff45ce64c5827237584157788c072d858a1a210938095ebfb0a" //default sample from builder
+
+	strings:
+		$a1 = "ContainsText" ascii wide
+		$a2 = "SetText" ascii wide
+		$a3 = "GetText" ascii wide
+		$a4 = "Regex" ascii wide
+		$a5 = "clipboard" ascii wide
+		$a6 = "Clipboard" ascii wide
+		$a7 = "HashSet" ascii wide
+		$a8 = "AddClipboardFormatListener" ascii wide
+
+		$b1 = "SetStartupRegistry" ascii wide
+		$b2 = "ExeSmartCopy" ascii wide
+		$b3 = "SetMostSimilarBtcAddress" ascii wide
+		$b4 = "TempExeRelativePath" ascii wide
+		$b5 = "FinalExeRelativePath" ascii wide
+		$b6 = "OnlyRunAfterSysRestart" ascii wide
+		$b7 = "SetStartupFolder" ascii wide
+		$b8 = "ProbablyBtcAddress" ascii wide
+		$b9 = "BitcoinTools" ascii wide
+		$b10 = "Hacking" ascii wide
+		$b11 = "DeleteItself" ascii wide
+		$b12 = "InitSoftware" ascii wide
+		$b13 = "FirstCharFitNum" ascii wide
+		$b14 = "LastCharFitNum" ascii wide
+		$b15 = "origClpbrdTxt" ascii wide
+		$b16 = "originalClipboardText" ascii wide
+		$b17 = "vanityAddresses" ascii wide
+		$b18 = "I'm running in Debug mode" ascii wide
+		$b19 = "StartModeDebug" ascii wide
+		$b20 = "Your computer has been infected, create another wallet and transfer your bitcoins there immediately!" ascii wide
+		$b21 = "Warning!" ascii wide
+		$b22 = "C:\\Users\\OutlinedBudgie\\source\\repos\\Main\\Main\\obj\\Release\\Main.pdb" ascii wide
+		$b23 = "^(1|3)[1-9A-HJ-NP-Za-km-z]{26,34}$" ascii wide
+		$b24 = "C:\\Users\\Public\\rekeywiz64.exe" ascii wide
+		$b25 = "C:\\Intel\\gp\\grpconv32.exe" ascii wide
+
+	condition:
+		(4 of ($a*)) and (13 of ($b*)) 
+}

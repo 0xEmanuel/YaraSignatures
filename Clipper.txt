@@ -1,0 +1,119 @@
+rule hunt_Clipper
+{
+	meta:
+		autor = "Emanuel Durmaz"
+		description = "clipboard hijacking"
+		sha256 = "ebc7e27d4daad479abc2fe1751e69d8176f4060aa6460dde230cb734bb0b3de3"
+		url = "..."
+
+	strings:
+		$a1 = "?1BEF0A57BE110FD467A" ascii wide
+		$a2 = "Accept: text/html, application/xml;q=0.9, application/xhtml+xml, image/png, image/jpeg, image/gif, image/x-xbitmap, */*;q=0.1" ascii wide
+		$a3 = "Accept-Language: ru-RU,ru;q=0.9,en;q=0.8" ascii wide
+		$a4 = "Accept-Charset: iso-8859-1, utf-8, utf-16, *;q=0.1" ascii wide
+		$a5 = "Accept-Encoding: deflate, gzip, x-gzip, identity, *;q=0" ascii wide
+		$a6 = "Content-Type: multipart/form-data; boundary=" ascii wide
+		$a7 = "\\sysFile.exe" ascii wide
+		$a8 = "cmd.exe" ascii wide
+		$a9 = " | to: " ascii wide
+		$a10 = " Changed: " ascii wide
+		$a11 = ".php?text=" ascii wide
+		$a12 = "SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion" ascii wide
+		$a13 = "ProductName" ascii wide
+		$a14 = " | GPU: " ascii wide
+		$a15 = " bit | CPU: " ascii wide
+		$a16 = "NetMonitor" ascii wide
+		$a17 = "taskmgr.exe" ascii wide
+		$a18 = "Process Killer" ascii wide
+		$a19 = "KillProcess" ascii wide
+		$a20 = "System Explorer" ascii wide
+		$a21 = "Process Explorer" ascii wide
+		$a22 = "AnVir" ascii wide
+		$a23 = "Process Hacker" ascii wide
+		$a24 = "Task Manager" ascii wide
+		$a25 = "nityDebugger" ascii wide
+		$a26 = "OllyDbg" ascii wide nocase
+		$a27 = "File Monitor" ascii wide
+		$a28 = "Process Monitor" ascii wide
+
+		$c1 = "|Bitcoin|" ascii wide
+		$c2 = "|BlackCoin|" ascii wide
+		$c3 = "|ByteCoin|" ascii wide
+		$c4 = "|EmerCoin|" ascii wide
+		$c5 = "|ReddCoin|" ascii wide
+		$c6 = "|Bitcoin Cash|" ascii wide
+		$c7 = "|Ripple|" ascii wide
+		$c8 = "|Dash|" ascii wide
+		$c9 = "|Dogecoin|" ascii wide
+		$c10 = "|Ethereum|" ascii wide
+		$c11 = "|LiteCoin|" ascii wide
+		$c12 = "|Monero|" ascii wide
+		$c13 = "|Zicash|" ascii wide
+		$c14 = "|Neo|" ascii wide
+		$c15 = "|Electroneum|" ascii wide
+		$c16 = "|Miota|" ascii wide
+		$c17 = "|Cardano|" ascii wide
+		$c18 = "|Lisk|" ascii wide
+		$c19 = "|Stratis|" ascii wide
+		$c20 = "|Waves|" ascii wide
+		$c21 = "|Qtum|" ascii wide
+		$c22 = "|Stellar|" ascii wide
+		$c23 = "|ViaCoin|" ascii wide
+		$c24 = "|Graft|" ascii wide
+		$c25 = "|Qiwi|" ascii wide
+		$c26 = "|WMR|" ascii wide
+		$c27 = "|WMU|" ascii wide
+		$c28 = "|WMX|" ascii wide
+		$c29 = "|WME|" ascii wide
+		$c30 = "|WMZ|" ascii wide
+		$c31 = "|YaMoney|" ascii wide
+		$c32 = "|yadisc|" ascii wide
+		$c33 = "|Steam|" ascii wide
+		$c34 = "|goo gl|" ascii wide
+		$c35 = "|VK cc|" ascii wide
+
+		$r1 = "(\\w{1,}\\s){11}(\\w{1,})$" ascii wide
+		$r2 = "(\\w{1,}\\s){17}(\\w{1,})$" ascii wide
+		$r3 = "(\\w{1,}\\s){23}(\\w{1,})$" ascii wide
+		$r4 = "[\\w\\d]{52}$" ascii wide
+		$r5 = "[\\w\\d]{64}$" ascii wide
+		$r6 = "^[13][a-zA-Z0-9]{26,33}$" ascii wide
+		$r7 = "^B[a-zA-Z0-9]{32,36}$" ascii wide
+		$r8 = "^2[0-9][a-zA-Z0-9]{93,96}$" ascii wide
+		$r9 = "^E[a-zA-Z0-9]{32,36}$" ascii wide
+		$r10 = "^q[a-zA-Z0-9]{40,42}$" ascii wide
+		$r11 = "^R[a-zA-Z0-9]{32,36}$" ascii wide
+		$r12 = "^r[a-zA-Z0-9]{32,36}$" ascii wide
+		$r13 = "^A[a-zA-Z0-9]{29,40}$" ascii wide
+		$r14 = "^etn[a-zA-Z0-9]{80,110}$" ascii wide
+		$r15 = "^[Xx][a-zA-Z0-9]{25,50}$" ascii wide
+		$r16 = "^[Dd][a-zA-Z0-9]{25,45}$" ascii wide
+		$r17 = "^[0][x][a-zA-Z0-9]{25,45}$" ascii wide
+		$r18 = "^L[a-zA-Z0-9]{26,33}$" ascii wide
+		$r19 = "^[4][a-zA-Z0-9]{80,130}$" ascii wide
+		$r20 = "^[tzTZ][a-zA-Z0-9]{25,45}$" ascii wide
+		$r21 = "^[^41001a-zA-Z]([#/()-+*]*[0-9]){7}[0-9,#/()-+*]{0,6}$" ascii wide
+		$r22 = "^[R][0-9]{12,15}$" ascii wide
+		$r23 = "^[U][0-9]{12,15}$" ascii wide
+		$r24 = "^[X][0-9]{12,15}$" ascii wide
+		$r25 = "^[G][0-9]{12,15}$" ascii wide
+		$r26 = "^[E][0-9]{12,15}$" ascii wide
+		$r27 = "^[Z][0-9]{12,15}$" ascii wide
+		$r28 = "^Y[a-zA-Z0-9]{89,92}$" ascii wide
+		$r29 = "^D[a-zA-Z0-9]{103,105}$" ascii wide
+		$r30 = "^[0-9]{19,22}L$" ascii wide
+		$r31 = "^S[a-zA-Z0-9]{31,35}$" ascii wide
+		$r32 = "^3P[a-zA-Z0-9]{32,36}$" ascii wide
+		$r33 = "^Q[a-zA-Z0-9]{32,36}$" ascii wide
+		$r34 = "^G[a-zA-Z0-9]{54,57}$" ascii wide
+		$r35 = "^V[a-zA-Z0-9]{32,36}$" ascii wide
+		$r36 = "G[a-zA-Z0-9]{104,107}$" ascii wide
+		$r37 = "^41001[a-zA-Z0-9]{7,12}$" ascii wide
+		$r38 = "((https://yad))+(([a-zA-Z0-9.-]+.[a-zA-Z]{2,4})|([0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}))(/[a-zA-Z0-9%:/-_?.'~]*)?" ascii wide
+		$r39 = "((https://steamcommunit))(?!.*id|.*id)(([a-zA-Z0-9.-]+.[a-zA-Z]{2,4})|([0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}))(/[a-zA-Z0-9%:/-_?.'~&]*)?" ascii wide
+		$r40 = "^(https://goo.gl/)([a-zA-Z0-9]{0,50})?" ascii wide
+		$r41 = "^(https://vk.cc/)([a-zA-Z0-9]{0,50})?" ascii wide
+
+	condition:
+		(14 of ($a*)) and (15 of ($c*)) and (13 of ($r*))
+}

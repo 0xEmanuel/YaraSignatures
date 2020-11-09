@@ -1,0 +1,61 @@
+rule hunt_EredelStealer
+{
+	meta:
+		autor = "Emanuel Durmaz"
+		description = "steals wallet files, passwords, etc."
+		sha256 = "4f09b782006601b93d21fdb20cf8d882f3b9b8f423d589e2941031b936b7dad6"
+		sha256 = "57cf6c641771ceb4b401bc68b35c1adf5c8cadbee7c26c5cee27071caaeb3e73"
+
+	strings:
+		$e1 = "EREDEL STEALER EXTENDED" ascii wide
+		$e2 = "BUY HERE : https://t.me/Eredel" ascii wide
+		$e3 = "Telegram Stealer by https://t.me/Eredel" ascii wide
+		$e4 = "errorEredel.log" ascii wide
+
+		$x = "Eredel" ascii wide nocase
+
+		$w1 = "Bitcoin-Qt" ascii wide
+		$w2 = "\\Bitcoin" ascii wide
+		$w3 = "\\Electrum" ascii wide
+		$w4 = "Litecoin-Qt" ascii wide
+		$w5 = "\\LitecoinCore" ascii wide
+		$w6 = "\\Ethereum\\keystore" ascii wide
+		$w7 = "Dash-Qt" ascii wide
+		$w8 = "\\DashCore" ascii wide
+		$w9 = "monero-project" ascii wide
+		$w10 = "monero-core" ascii wide
+		$w11 = "wallet_path" ascii wide
+		$w12 = "wallet.dat" ascii wide
+
+		$a1 = "\\passwords.log" ascii wide
+		$a2 = "cc.txt" ascii wide
+		$a3 = "strDataDir" ascii wide
+		$a4 = "~ ~ ~        BUILD IDENTIFICATOR       ~ ~ ~" ascii wide
+		$a5 = "doc;.docx;.log;.txt;" ascii wide
+		$a6 = "screen.jpg" ascii wide
+		$a7 = "logins" ascii wide
+		$a8 = "credit_cards" ascii wide
+		$a9 = "AutoFill" ascii wide
+		$a10 = "Saved Passwords :" ascii wide
+		$a11 = "Saved Credit Cards :" ascii wide
+		$a12 = "Card Number :" ascii wide
+		$a13 = "Billing Address :" ascii wide
+
+		$b1 = "\\Google\\Chrome\\User Data\\Default" ascii wide
+		$b2 = "\\Kometa\\User Data\\Default" ascii wide
+		$b3 = "\\Orbitum\\User Data\\Default" ascii wide
+		$b4 = "\\Torch\\User Data\\Default" ascii wide
+		$b5 = "\\Amigo\\User\\User Data\\Default" ascii wide
+		$b6 = "\\Chromium\\User Data\\Default" ascii wide
+		$b7 = "\\Vivaldi\\User Data\\Default" ascii wide
+		$b8 = "\\Maxthon5\\User Data\\Default" ascii wide
+		$b9 = "\\Opera Software\\Opera Neon\\User Data\\Default" ascii wide
+		$b10 = "\\Yandex\\YandexBrowser\\User Data\\Default" ascii wide
+		$b11 = "\\Epic Privacy Browser\\User Data\\Default" ascii wide
+		$b12 = "\\CocCoc\\Browser\\User Data\\Default" ascii wide
+		$b13 = "\\Nichrome\\User Data\\Default" ascii wide
+
+	condition:
+		( (3 of ($w*)) and (1 of ($e*)) and (6 of ($a*)) ) or
+		( $x and (3 of ($w*)) and (10 of ($a*)) and (6 of ($b*)) )
+}
